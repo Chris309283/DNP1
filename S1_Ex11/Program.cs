@@ -1,5 +1,4 @@
 ﻿namespace S1_Ex11;
-
 class Program
 {
     void CountClumps(int[] ints)
