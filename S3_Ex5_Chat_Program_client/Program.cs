@@ -9,7 +9,8 @@ class Program
     {
         using TcpClient client = new TcpClient("127.0.0.1", 5000);
         using NetworkStream stream = client.GetStream();
-           
+           // ny thread             ListenToServer(stream);
+
         while (true)
         {
             Console.WriteLine("Please input something to echo...");
@@ -26,10 +27,14 @@ class Program
                 break;
             }
   
-            byte[] dataFromServer = new byte[1024];
-            int bytesRead = stream.Read(dataFromServer, 0, dataFromServer.Length);
-            string response = Encoding.ASCII.GetString(dataFromServer, 0, bytesRead);
-            Console.WriteLine(response);
         }
-    }  
+    }
+
+    private static void ListenToServer(NetworkStream stream)
+    {
+        byte[] dataFromServer = new byte[1024];
+        int bytesRead = stream.Read(dataFromServer, 0, dataFromServer.Length);
+        string response = Encoding.ASCII.GetString(dataFromServer, 0, bytesRead);
+        Console.WriteLine(response);
+    }
 }
