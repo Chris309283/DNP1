@@ -2,24 +2,24 @@
 
 public class Bird
 {
+    public Action<string> BirdThings;
+    private string[] things = {"Bird flaps wings", "Bird sings", "Bird does mating dance"};
+    private string birdType;
+
+    public Bird(string birdType)
+    {
+        this.birdType = birdType;
+    }
+
     public void Run()
     {
         var random = new Random();
         while (true)
         {
-            switch (random.Next(1, 4))
-            {
-                case 1:
-                    Console.WriteLine("Bird flaps wings");
-                    break;
-                case 2:
-                    Console.WriteLine("Bird sings");
-                    break;
-                case 3:
-                    Console.WriteLine("Bird does mating dance");
-                    break;
-            }
-            Thread.Sleep(2000);
+            string bird = things[random.Next(0, 3)];
+            Console.WriteLine($"{birdType} {bird}");
+            BirdThings?.Invoke(bird);
+            Thread.Sleep(1000);
         }
     }
 }

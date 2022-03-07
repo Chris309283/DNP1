@@ -2,13 +2,13 @@
 
 public class WaitingRoom
 {
-    public Action<int> NumberChange;
-    private int CurrentNumber = 0;
+    public Action<int>? NumberChange { get; set; }
+    private int CurrentNumber = 1;
     private int TicketCount = 0;
 
     public void RunWaitingRoom()
     {
-        while (CurrentNumber < TicketCount)
+        while (CurrentNumber <= TicketCount)
         {
             NumberChange?.Invoke(CurrentNumber++);
             Console.WriteLine("Diing");

@@ -2,19 +2,28 @@
 
 public class Patient
 {
-    private int NumberInQueue;
+    private readonly int NumberInQueue;
+    private readonly WaitingRoom waitingRoom;
     public Patient(WaitingRoom waitingRoom)
     {
-        waitingRoom.NumberChange += ReactToNumber;
         NumberInQueue = waitingRoom.DrawNumber();
+        this.waitingRoom = waitingRoom;
+        waitingRoom.NumberChange += ReactToNumber;
         Console.WriteLine($"Patient {NumberInQueue} enters waiting room");
     }
 
-    public void ReactToNumber(int ticketNumber)
+    private void ReactToNumber(int ticketNumber)
     {
         Console.WriteLine($"Patient {NumberInQueue} looks up");
-        Console.WriteLine(NumberInQueue == ticketNumber
-            ? $"Patient {NumberInQueue} goes to the doctor's room"
-            : $"Patient {NumberInQueue} goes back to looking at phone");
+
+        if (NumberInQueue == ticketNumber)
+        {
+            Console.WriteLine($"Patient {NumberInQueue} goes to the doctor's room");
+            waitingRoom.NumberChange -= ReactToNumber;
+        }
+        else
+        {
+            Console.WriteLine($"Patient {NumberInQueue} goes back to looking at phone");
+        }
     }
 }
