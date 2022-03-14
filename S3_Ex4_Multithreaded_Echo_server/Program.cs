@@ -18,16 +18,20 @@ class Program
 
         while (true)
         {
-            ConnectClient(listener);
+            using TcpClient client = listener.AcceptTcpClient();
+
+            Thread thread = new Thread(() => HandleOneClient(client));
+            thread.Start();
         }
     }
 
-    private static void HandleOneClient(TcpListener listener)
+    private static void HandleOneClient(TcpClient client)
     {
-        using TcpClient client = listener.AcceptTcpClient();
 
         Console.WriteLine("Client connected");
         using NetworkStream stream = client.GetStream();
+        
+        
 
         while (true)
         {
@@ -50,7 +54,6 @@ class Program
 
     private static void ConnectClient(TcpListener listener)
     {
-        Thread thread = new Thread(() => HandleOneClient(listener));
-        thread.Start();
+       
     }
 }
