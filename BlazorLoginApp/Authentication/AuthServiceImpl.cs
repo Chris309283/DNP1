@@ -38,7 +38,7 @@ public class AuthServiceImpl : IAuthService
         OnAuthStateChanged?.Invoke(principal); // notify about change in authentication state
     }
 
-    public async Task<ClaimsPrincipal> GetAuthAsync() // this method is called by the authentication framework, whenever user credentials are required
+    public async Task<ClaimsPrincipal> GetAuthAsync() // this method is called by the authentication framework, whenever user credentials are reguired
     {
         User? user =  await GetUserFromCacheAsync(); // retrieve cached user, if any
 
